@@ -2,7 +2,7 @@ const AlbumText = ({ label, data }) => {
   if (Array.isArray(data)) {
     return (
       <p>
-        {label}: 1
+        {label}:
         {data.map((item, index) => (
           <span key={index}>
             {item.name}
