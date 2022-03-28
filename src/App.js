@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import { data } from "./data/gifs";
+import "./App.css";
+import Gif from "./components/Gif";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<div className="App">
+			{data
+				.filter((item) => item.rating === "g")
+				.map((item) => (
+					<Gif url={item.url} />
+				))}
+		</div>
+	);
 }
 
 export default App;
