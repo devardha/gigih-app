@@ -1,3 +1,5 @@
+import React from "react";
+
 const AlbumText = ({ label, data }) => {
 	if (Array.isArray(data)) {
 		return (
