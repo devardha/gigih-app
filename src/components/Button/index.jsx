@@ -1,7 +1,7 @@
 import React from "react";
 
-const Button = () => {
-	return <button>Select</button>;
+const Button = ({ value }) => {
+	return <button>{value}</button>;
 };
 
 export default Button;

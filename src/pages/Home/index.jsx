@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import AlbumText from "../../components/AlbumText";
-import Button from "../../components/Button";
-import Image from "../../components/Image";
+import Song from "../../components/Song";
 
 const Home = ({ token }) => {
 	const [songs, setSongs] = useState([]);
 	const [tokenError, setTokenError] = useState(false);
 	const [query, setQuery] = useState("");
+	const [selected, setSelected] = useState("");
 	const Authorization = `Bearer ${token}`;
 
 	const handleSearch = async () => {
@@ -26,7 +25,7 @@ const Home = ({ token }) => {
 				.then((res) => {
 					if (res.tracks) {
 						setTokenError(false);
-						setSongs(res.tracks.items);
+						setSongs([...songs, ...res.tracks.items]);
 					}
 
 					if (res.error && res.error.status === 401) {
@@ -50,15 +49,16 @@ const Home = ({ token }) => {
 				<button onClick={() => handleSearch()}>Search</button>
 			</div>
 			{tokenError && <p>Invalid access token. Please log in</p>}
-			{songs.map((item) => (
-				<div key={item.id} className="song">
-					<Image url={item.album.images[0].url} alt="cover" />
-					<div className="detail">
-						<AlbumText label="Title" data={item.name} />
-						<AlbumText label="Artists" data={item.artists} />
-						<AlbumText label="Album" data={item.album.name} />
-						<Button />
-					</div>
+			{songs.map((item, index) => (
+				<div
+					key={item.id + "" + index}
+					onClick={() =>
+						item.href === selected
+							? setSelected("")
+							: setSelected(item.href)
+					}
+				>
+					<Song data={item} selected={selected} />
 				</div>
 			))}
 		</div>
