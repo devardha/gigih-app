@@ -1,6 +1,5 @@
-import { data } from "./data/gifs";
 import "./App.css";
-import Gif from "./components/Gif";
+import React from "react";
 import Search from "./pages/search";
 
 function App() {
