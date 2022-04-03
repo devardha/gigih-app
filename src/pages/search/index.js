@@ -1,11 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Search = () => {
-	const [data, setData] = useState({
-		text: "",
-		gifs: [],
-	});
-
+const Search = ({ data, setData }) => {
 	const handleOnChange = (e) => {
 		setData({ ...data, text: e.target.value });
 	};
