@@ -5,6 +5,7 @@ import crypto from "crypto";
 
 function App() {
 	const [accessToken, setAccessToken] = useState("");
+	const [user, setUser] = useState();
 
 	const handleAuth = () => {
 		const client_id = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
@@ -13,7 +14,7 @@ function App() {
 		const state = crypto.randomBytes(8).toString("hex");
 
 		localStorage.setItem("spotify-client", state);
-		const scope = "playlist-modify-private";
+		const scope = "playlist-modify-private user-read-private";
 
 		let url = "https://accounts.spotify.com/authorize";
 		url += "?response_type=token";
@@ -35,6 +36,22 @@ function App() {
 		return finalObj;
 	}
 
+	const getCurrentUser = () => {
+		const Authorization = `Bearer ${accessToken}`;
+		fetch(`https://api.spotify.com/v1/me`, {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization,
+			},
+		})
+			.then((response) => response.json())
+			.then((res) => {
+				if (res.id) {
+					setUser(res);
+				}
+			});
+	};
+
 	useEffect(() => {
 		if (window.location.hash) {
 			const hash = getQuery(window.location.hash);
@@ -42,12 +59,25 @@ function App() {
 		}
 	}, []);
 
+	useEffect(() => {
+		if (!user && accessToken && accessToken !== "") {
+			getCurrentUser();
+		}
+	}, [user, accessToken]);
+
 	return (
 		<div className="App">
-			<button className="auth" onClick={() => handleAuth()}>
-				Log in
-			</button>
-			<Home token={accessToken} />
+			<header>
+				<h2>Gigih App</h2>
+				{user ? (
+					<p>Hello, {user.display_name}</p>
+				) : (
+					<button className="auth" onClick={() => handleAuth()}>
+						Log in
+					</button>
+				)}
+			</header>
+			<Home token={accessToken} user={user} />
 		</div>
 	);
 }

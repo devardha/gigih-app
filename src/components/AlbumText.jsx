@@ -4,7 +4,6 @@ const AlbumText = ({ label, data }) => {
 	if (Array.isArray(data)) {
 		return (
 			<p>
-				<span>{label}: </span>
 				{data.map((item, index) => (
 					<span key={index}>
 						{item.name}
@@ -15,11 +14,7 @@ const AlbumText = ({ label, data }) => {
 		);
 	}
 
-	return (
-		<p>
-			{label}: {data}
-		</p>
-	);
+	return <p style={{ fontWeight: label === "Title" ? 700 : 400 }}>{data}</p>;
 };
 
 export default AlbumText;

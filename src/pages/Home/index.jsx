@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import Song from "../../components/Song";
 
-const Home = ({ token }) => {
+const Home = ({ token, user }) => {
+	const [formData, setFormData] = useState({
+		name: "",
+		description: "",
+	});
+
 	const [songs, setSongs] = useState([]);
 	const [tokenError, setTokenError] = useState(false);
 	const [query, setQuery] = useState("");
-	const [selected, setSelected] = useState("");
+	const [selected, setSelected] = useState([]);
 	const Authorization = `Bearer ${token}`;
 
 	const handleSearch = async () => {
@@ -37,8 +42,81 @@ const Home = ({ token }) => {
 		}
 	};
 
+	const addSongToPlaylist = async (playlistID) => {
+		const filtered = songs.filter((item) => selected.includes(item.href));
+		const uris =
+			filtered.length > 0 ? filtered.map((item) => item.uri) : [];
+
+		const body = {
+			uris,
+			position: 0,
+		};
+
+		fetch(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization,
+			},
+			body: JSON.stringify(body),
+		})
+			.then((response) => response.json())
+			.then((res) => {
+				alert("Playlist created! Snapshot ID: " + res.snapshot_id);
+			});
+	};
+
+	const createPlaylist = (e) => {
+		e.preventDefault();
+
+		const body = {
+			name: formData.name,
+			description: formData.description,
+			public: false,
+			collaborative: false,
+		};
+
+		fetch(`https://api.spotify.com/v1/users/${user.id}/playlists`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization,
+			},
+			body: JSON.stringify(body),
+		})
+			.then((response) => response.json())
+			.then((res) => {
+				addSongToPlaylist(res.id);
+			});
+	};
+
 	return (
 		<div id="playlist">
+			<form onSubmit={createPlaylist}>
+				<h2>Create New Playlist</h2>
+				<input
+					type="text"
+					placeholder="Title"
+					value={formData.name}
+					minLength={10}
+					onChange={(e) =>
+						setFormData({ ...formData, name: e.target.value })
+					}
+				/>
+				<textarea
+					type="text"
+					placeholder="Title"
+					value={formData.description}
+					onChange={(e) =>
+						setFormData({
+							...formData,
+							description: e.target.value,
+						})
+					}
+				/>
+				<button>Create</button>
+			</form>
+			<h2>Search Songs</h2>
 			<div className="searchbox">
 				<input
 					type="text"
@@ -49,18 +127,16 @@ const Home = ({ token }) => {
 				<button onClick={() => handleSearch()}>Search</button>
 			</div>
 			{tokenError && <p>Invalid access token. Please log in</p>}
-			{songs.map((item, index) => (
-				<div
-					key={item.id + "" + index}
-					onClick={() =>
-						item.href === selected
-							? setSelected("")
-							: setSelected(item.href)
-					}
-				>
-					<Song data={item} selected={selected} />
-				</div>
-			))}
+			<div className="grid">
+				{songs.map((item, index) => (
+					<Song
+						data={item}
+						selected={selected}
+						setSelected={setSelected}
+						key={item.id + "" + index}
+					/>
+				))}
+			</div>
 		</div>
 	);
 };
