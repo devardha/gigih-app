@@ -1,8 +1,13 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateQuery } from "../../redux/reducers/searchReducer";
 
 const Search = ({ data, setData }) => {
+	const query = useSelector((state) => state.search.q);
+	const dispatch = useDispatch();
+
 	const handleOnChange = (e) => {
-		setData({ ...data, text: e.target.value });
+		dispatch(updateQuery(e.target.value));
 	};
 
 	const handleSearch = async () => {
@@ -17,11 +22,11 @@ const Search = ({ data, setData }) => {
 
 	return (
 		<div>
-			<div>
-				<input value={data.text} onChange={(e) => handleOnChange(e)} />
+			<header>
+				<input value={query} onChange={(e) => handleOnChange(e)} />
 				<button onClick={() => handleSearch()}>Search</button>
-			</div>
-			<dov>
+			</header>
+			<div className="grid">
 				{data.gifs.map((item) => (
 					<img
 						src={item.images.fixed_width.url}
@@ -29,7 +34,7 @@ const Search = ({ data, setData }) => {
 						alt="gif"
 					/>
 				))}
-			</dov>
+			</div>
 		</div>
 	);
 };
