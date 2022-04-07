@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Song from "../../components/Song";
-import { loadToken, loadUser } from "../../redux/reducers/userReducer";
-import { handleAuth } from "../../utils/auth";
-import { getQuery } from "../../utils/queryString";
 
 const Home = () => {
 	const [formData, setFormData] = useState({
@@ -17,7 +14,6 @@ const Home = () => {
 	const [selected, setSelected] = useState([]);
 	const { user, access_token } = useSelector((state) => state.user);
 
-	const dispatch = useDispatch();
 	const Authorization = `Bearer ${access_token}`;
 
 	const handleSearch = async () => {
@@ -73,22 +69,6 @@ const Home = () => {
 			});
 	};
 
-	const getCurrentUser = () => {
-		const Authorization = `Bearer ${access_token}`;
-		fetch(`https://api.spotify.com/v1/me`, {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization,
-			},
-		})
-			.then((response) => response.json())
-			.then((res) => {
-				if (res.id) {
-					dispatch(loadUser(res));
-				}
-			});
-	};
-
 	const createPlaylist = (e) => {
 		e.preventDefault();
 
@@ -113,30 +93,11 @@ const Home = () => {
 			});
 	};
 
-	useEffect(() => {
-		if (access_token) {
-			getCurrentUser();
-		}
-	}, [access_token]);
-
-	useEffect(() => {
-		if (window.location.hash) {
-			const hash = getQuery(window.location.hash);
-			dispatch(loadToken(hash.access_token));
-		}
-	}, []);
-
 	return (
 		<>
 			<header>
 				<h2>Gigih App</h2>
-				{user.id ? (
-					<p>Hello, {user.display_name}</p>
-				) : (
-					<button className="auth" onClick={() => handleAuth()}>
-						Log in
-					</button>
-				)}
+				{user.id ? <p>Hello, {user.display_name}</p> : ""}
 			</header>
 			<div id="playlist">
 				<form onSubmit={createPlaylist}>
