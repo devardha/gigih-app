@@ -1,18 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import Search from "./pages/Search";
+import Trending from "./pages/Trending";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 function App() {
-	const [data, setData] = useState({
-		gifs: [],
-	});
-
 	return (
 		<Provider store={store}>
-			<div className="App">
-				<Search data={data} setData={setData} />
-			</div>
+			<Router>
+				<nav>
+					<Link to="/">Search</Link>
+					<Link to="/trending">Trending</Link>
+				</nav>
+				<Routes>
+					<Route path="/" element={<Search />}></Route>
+					<Route path="/trending" element={<Trending />}></Route>
+				</Routes>
+			</Router>
 		</Provider>
 	);
 }

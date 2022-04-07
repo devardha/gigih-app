@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateQuery } from "../../redux/reducers/searchReducer";
 
-const Search = ({ data, setData }) => {
+const Search = () => {
+	const [data, setData] = useState({
+		gifs: [],
+	});
+
 	const query = useSelector((state) => state.search.q);
 	const dispatch = useDispatch();
 
