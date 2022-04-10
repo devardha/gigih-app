@@ -15,7 +15,7 @@ const Trending = () => {
 
 			setData({ ...data, gifs: res.data });
 		})();
-	}, []);
+	}, [data]);
 
 	return (
 		<div>
