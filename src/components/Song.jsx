@@ -1,9 +1,9 @@
-import React from "react";
-import AlbumText from "./AlbumText";
-import Button from "./Button";
-import Image from "./Image";
+import React from 'react';
+import AlbumText from './AlbumText';
+import Button from './Button';
+import Image from './Image';
 
-const Song = ({ data, selected, setSelected }) => {
+function Song({ data, selected, setSelected }) {
 	const handleSelect = (song, selected, setSelected) => {
 		if (selected.includes(song.href)) {
 			const filtered = selected.filter((item) => item !== song.href);
@@ -22,15 +22,16 @@ const Song = ({ data, selected, setSelected }) => {
 				<AlbumText label="Artists" data={data.artists} />
 				<AlbumText label="Album" data={data.album.name} />
 				<Button
+					type="button"
 					onClick={() => handleSelect(data, selected, setSelected)}
-					value={selected.includes(data.href) ? "Deselect" : "Select"}
+					value={selected.includes(data.href) ? 'Deselect' : 'Select'}
 					className={`${
-						selected.includes(data.href) ? "selected" : ""
+						selected.includes(data.href) ? 'selected' : ''
 					}`}
 				/>
 			</div>
 		</div>
 	);
-};
+}
 
 export default Song;

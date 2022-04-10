@@ -1,0 +1,44 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+		"plugin:prettier/recommended",
+        "airbnb"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+		"prettier"
+    ],
+    "rules": {
+		"indent": [2, "tab"],
+        "react/jsx-indent": [2, "tab"],
+        "no-tabs": 0,
+        "trailingComma": 0,
+        "prefer-destructuring": ["error", {"object": true, "array": false}],
+        "react/jsx-indent-props": 0,
+        "object-curly-newline": 0,
+        "comma-dangle": 0,
+        "operator-linebreak": 0,
+        "no-param-reassign": 0,
+        "react/prop-types": 0,
+        "no-shadow": 0,
+        "no-alert": 0,
+        "react/jsx-one-expression-per-line": 0,
+        "react/no-array-index-key": 0,
+        "react/jsx-curly-newline": 0,
+        "implicit-arrow-linebreak": 0,
+        "no-undef": 0,
+        "react/jsx-props-no-spreading": 0
+    }
+}

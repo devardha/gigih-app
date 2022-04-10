@@ -1,31 +1,29 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import Song from "../../components/Song";
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import Song from '../../components/Song';
 
-const Home = () => {
+function Home() {
 	const [formData, setFormData] = useState({
-		name: "",
-		description: "",
+		name: '',
+		description: '',
 	});
 
 	const [songs, setSongs] = useState([]);
 	const [tokenError, setTokenError] = useState(false);
-	const [query, setQuery] = useState("");
+	const [query, setQuery] = useState('');
 	const [selected, setSelected] = useState([]);
-	const { user, access_token } = useSelector((state) => state.user);
-
-	const Authorization = `Bearer ${access_token}`;
+	const { user, accessToken } = useSelector((state) => state.user);
 
 	const handleSearch = async () => {
-		if (access_token && access_token !== "") {
+		if (accessToken && accessToken !== '') {
 			fetch(
 				`https://api.spotify.com/v1/search?q=${encodeURIComponent(
 					query
 				)}&type=track`,
 				{
 					headers: {
-						"Content-Type": "application/json",
-						Authorization,
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${accessToken}`,
 					},
 				}
 			)
@@ -56,16 +54,16 @@ const Home = () => {
 		};
 
 		fetch(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {
-			method: "POST",
+			method: 'POST',
 			headers: {
-				"Content-Type": "application/json",
-				Authorization,
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${accessToken}`,
 			},
 			body: JSON.stringify(body),
 		})
 			.then((response) => response.json())
 			.then((res) => {
-				alert("Playlist created! Snapshot ID: " + res.snapshot_id);
+				alert(`Playlist created! Snapshot ID: ${res.snapshot_id}`);
 			});
 	};
 
@@ -80,10 +78,10 @@ const Home = () => {
 		};
 
 		fetch(`https://api.spotify.com/v1/users/${user.id}/playlists`, {
-			method: "POST",
+			method: 'POST',
 			headers: {
-				"Content-Type": "application/json",
-				Authorization,
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${accessToken}`,
 			},
 			body: JSON.stringify(body),
 		})
@@ -97,7 +95,7 @@ const Home = () => {
 		<>
 			<header>
 				<h2>Gigih App</h2>
-				{user.id ? <p>Hello, {user.display_name}</p> : ""}
+				{user.id ? <p>Hello,{user.display_name}</p> : ''}
 			</header>
 			<div id="playlist">
 				<form onSubmit={createPlaylist}>
@@ -122,7 +120,7 @@ const Home = () => {
 							})
 						}
 					/>
-					<button>Create</button>
+					<button type="button">Create</button>
 				</form>
 				<h2>Search Songs</h2>
 				<div className="searchbox">
@@ -132,7 +130,9 @@ const Home = () => {
 						value={query}
 						onChange={(e) => setQuery(e.target.value)}
 					/>
-					<button onClick={() => handleSearch()}>Search</button>
+					<button type="button" onClick={() => handleSearch()}>
+						Search
+					</button>
 				</div>
 				{tokenError && <p>Invalid access token. Please log in</p>}
 				<div className="grid">
@@ -141,13 +141,13 @@ const Home = () => {
 							data={item}
 							selected={selected}
 							setSelected={setSelected}
-							key={item.id + "" + index}
+							key={`${item.id}${index}`}
 						/>
 					))}
 				</div>
 			</div>
 		</>
 	);
-};
+}
 
 export default Home;
