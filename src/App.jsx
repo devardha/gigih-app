@@ -40,7 +40,9 @@ function App() {
 		if (window.location.hash) {
 			const hash = getQuery(window.location.hash);
 
-			dispatch(loadToken(hash.accessToken));
+			if (hash.access_token) {
+				dispatch(loadToken(hash.access_token));
+			}
 		}
 	}, [dispatch]);
 

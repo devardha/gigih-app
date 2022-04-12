@@ -39,6 +39,13 @@
         "react/jsx-curly-newline": 0,
         "implicit-arrow-linebreak": 0,
         "no-undef": 0,
-        "react/jsx-props-no-spreading": 0
+        "react/jsx-props-no-spreading": 0,
+        "linebreak-style": ["error", "windows"],
+        "prettier/prettier": [
+            "error",
+            {
+              "endOfLine": "auto"
+            }
+        ]
     }
 }

@@ -95,11 +95,11 @@ function Home() {
 		<>
 			<header>
 				<h2>Gigih App</h2>
-				{user.id ? <p>Hello,{user.display_name}</p> : ''}
+				{user.id ? <p>Hello, {user.display_name} 👋</p> : ''}
 			</header>
 			<div id="playlist">
 				<form onSubmit={createPlaylist}>
-					<h2>Create New Playlist</h2>
+					<h2>🎶 Create New Playlist</h2>
 					<input
 						type="text"
 						placeholder="Title"
@@ -122,7 +122,7 @@ function Home() {
 					/>
 					<button type="button">Create</button>
 				</form>
-				<h2>Search Songs</h2>
+				<h2>🎵 Search Songs</h2>
 				<div className="searchbox">
 					<input
 						type="text"
