@@ -1,5 +1,18 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import {
+	Input,
+	Textarea,
+	Box,
+	Flex,
+	Container,
+	Heading,
+	Button,
+	Grid,
+	GridItem,
+	FormControl,
+	useToast,
+} from '@chakra-ui/react';
 import Song from '../../components/Song';
 
 function Home() {
@@ -7,6 +20,7 @@ function Home() {
 		name: '',
 		description: '',
 	});
+	const toast = useToast();
 
 	const [songs, setSongs] = useState([]);
 	const [tokenError, setTokenError] = useState(false);
@@ -62,14 +76,19 @@ function Home() {
 			body: JSON.stringify(body),
 		})
 			.then((response) => response.json())
-			.then((res) => {
-				alert(`Playlist created! Snapshot ID: ${res.snapshot_id}`);
+			.then(() => {
+				toast({
+					title: 'Playlist created!',
+					description:
+						'Playlist has been created. Open Spotify to see the playlist.',
+					status: 'success',
+					duration: 9000,
+					isClosable: true,
+				});
 			});
 	};
 
-	const createPlaylist = (e) => {
-		e.preventDefault();
-
+	const createPlaylist = () => {
 		const body = {
 			name: formData.name,
 			description: formData.description,
@@ -93,59 +112,97 @@ function Home() {
 
 	return (
 		<>
-			<header>
-				<h2>Gigih App</h2>
-				{user.id ? <p>Hello, {user.display_name} 👋</p> : ''}
-			</header>
-			<div id="playlist">
-				<form onSubmit={createPlaylist}>
-					<h2>🎶 Create New Playlist</h2>
-					<input
-						type="text"
-						placeholder="Title"
-						value={formData.name}
-						minLength={10}
-						onChange={(e) =>
-							setFormData({ ...formData, name: e.target.value })
-						}
-					/>
-					<textarea
-						type="text"
-						placeholder="Title"
-						value={formData.description}
-						onChange={(e) =>
-							setFormData({
-								...formData,
-								description: e.target.value,
-							})
-						}
-					/>
-					<button type="button">Create</button>
-				</form>
-				<h2>🎵 Search Songs</h2>
-				<div className="searchbox">
-					<input
-						type="text"
-						placeholder="Search"
-						value={query}
-						onChange={(e) => setQuery(e.target.value)}
-					/>
-					<button type="button" onClick={() => handleSearch()}>
-						Search
-					</button>
-				</div>
-				{tokenError && <p>Invalid access token. Please log in</p>}
-				<div className="grid">
-					{songs.map((item, index) => (
-						<Song
-							data={item}
-							selected={selected}
-							setSelected={setSelected}
-							key={`${item.id}${index}`}
-						/>
-					))}
-				</div>
-			</div>
+			<Box background="gray.100" marginBottom={5}>
+				<Container maxW="container.xl" paddingY={5}>
+					<Flex justifyContent="space-between">
+						<Heading as="h1" fontSize="20">
+							Gigih App
+						</Heading>
+						{user.id ? <p>Hello, {user.display_name} 👋</p> : ''}
+					</Flex>
+				</Container>
+			</Box>
+			<Box>
+				<Container maxW="container.xl" paddingY={4}>
+					<Box marginBottom={16}>
+						<FormControl>
+							<Heading as="h2" fontSize="2xl" marginBottom={4}>
+								🎶 Create New Playlist
+							</Heading>
+							<Input
+								type="text"
+								placeholder="Title"
+								value={formData.name}
+								minLength={10}
+								onChange={(e) =>
+									setFormData({
+										...formData,
+										name: e.target.value,
+									})
+								}
+								marginBottom={4}
+							/>
+							<Textarea
+								type="text"
+								placeholder="Title"
+								value={formData.description}
+								onChange={(e) =>
+									setFormData({
+										...formData,
+										description: e.target.value,
+									})
+								}
+							/>
+							<Button
+								type="button"
+								background="green.300"
+								color="white"
+								marginTop={4}
+								onClick={() => createPlaylist()}
+							>
+								Create
+							</Button>
+						</FormControl>
+					</Box>
+					<Box>
+						<Heading as="h2" fontSize="2xl" marginBottom={4}>
+							🎵 Search Songs
+						</Heading>
+						<Flex marginBottom={5}>
+							<Input
+								type="text"
+								placeholder="Search"
+								value={query}
+								onChange={(e) => setQuery(e.target.value)}
+							/>
+							<Button
+								type="button"
+								onClick={() => handleSearch()}
+								marginLeft={4}
+							>
+								Search
+							</Button>
+						</Flex>
+						{tokenError && (
+							<p>Invalid access token. Please log in</p>
+						)}
+						<Grid templateColumns="repeat(6, 1fr)" gap={6}>
+							{songs.map((item, index) => (
+								<GridItem
+									key={`${item.id}${index}`}
+									width="100%"
+								>
+									<Song
+										data={item}
+										selected={selected}
+										setSelected={setSelected}
+									/>
+								</GridItem>
+							))}
+						</Grid>
+					</Box>
+				</Container>
+			</Box>
 		</>
 	);
 }

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import './App.css';
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -7,6 +6,7 @@ import {
 	Redirect,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { ChakraProvider } from '@chakra-ui/react';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import { loadToken, loadUser } from './redux/reducers/userReducer';
@@ -47,18 +47,20 @@ function App() {
 	}, [dispatch]);
 
 	return (
-		<Router>
-			<Switch>
-				<div className="App">
-					<Route exact path="/">
-						{authenticated ? <Home /> : <Login />}
-					</Route>
-					<Route path="/create-playlist">
-						{authenticated ? <Home /> : <Redirect to="/" />}
-					</Route>
-				</div>
-			</Switch>
-		</Router>
+		<ChakraProvider>
+			<Router>
+				<Switch>
+					<div className="App">
+						<Route exact path="/">
+							{authenticated ? <Home /> : <Login />}
+						</Route>
+						<Route path="/create-playlist">
+							{authenticated ? <Home /> : <Redirect to="/" />}
+						</Route>
+					</div>
+				</Switch>
+			</Router>
+		</ChakraProvider>
 	);
 }
 
