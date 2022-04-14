@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateQuery } from "../../redux/reducers/searchReducer";
+import { Box, Button, Container, Flex, Input } from "@chakra-ui/react";
 
 const Search = () => {
 	const [data, setData] = useState({
@@ -26,10 +27,19 @@ const Search = () => {
 
 	return (
 		<div>
-			<header>
-				<input value={query} onChange={(e) => handleOnChange(e)} />
-				<button onClick={() => handleSearch()}>Search</button>
-			</header>
+			<Box>
+				<Container maxW="container.xl" marginTop={8}>
+					<Flex>
+						<Input
+							value={query}
+							onChange={(e) => handleOnChange(e)}
+						/>
+						<Button onClick={() => handleSearch()} marginLeft={2}>
+							Search
+						</Button>
+					</Flex>
+				</Container>
+			</Box>
 			<div className="grid">
 				{data.gifs.map((item) => (
 					<img
