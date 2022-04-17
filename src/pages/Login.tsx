@@ -1,6 +1,6 @@
 import { Box, Button, Flex } from '@chakra-ui/react';
 import React from 'react';
-import handleAuth from '../../utils/auth';
+import handleAuth from '../utils/auth';
 
 function Login() {
 	return (

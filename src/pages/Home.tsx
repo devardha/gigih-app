@@ -13,10 +13,10 @@ import {
 	FormControl,
 	useToast,
 } from '@chakra-ui/react';
-import SongItem from '../../components/Song';
-import { State, Song } from '../../types';
+import SongItem from '../components/Song';
+import { State, Song } from '../types/types';
 
-function Home() {
+const Home = () => {
 	const [formData, setFormData] = useState({
 		name: '',
 		description: '',
@@ -210,6 +210,6 @@ function Home() {
 			</Box>
 		</>
 	);
-}
+};
 
 export default Home;

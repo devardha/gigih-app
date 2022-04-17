@@ -47,7 +47,27 @@
               "endOfLine": "auto"
             }
         ],
+        "import\no-unresolved": "off",
         "camelcase": "off",
-        "no-restricted-globals": "off"
+        "no-restricted-globals": "off",
+        "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+              "js": "never",
+              "jsx": "never",
+              "ts": "never",
+              "tsx": "never"
+            }
+        ],
+        "react/function-component-definition": "off",
+        "function-paren-newline": "off",
+        "no-unused-vars": "off"
+    },
+    "settings": {
+        "import/resolver": {
+            "typescript": {}
+        }
     }
 }

@@ -11,7 +11,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import { loadToken, loadUser } from './redux/reducers/userReducer';
 import getQuery from './utils/queryString';
-import { HashResult, State } from './types';
+import { HashResult, State } from './types/types';
 
 function App() {
 	const { user, accessToken } = useSelector((state: State) => state.user);
