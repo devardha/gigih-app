@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { Data, Gif } from "src/types";
 
 const Trending = () => {
-	const [data, setData] = useState({
+	const [data, setData] = useState<Data>({
 		gifs: [],
 	});
 
@@ -23,7 +24,7 @@ const Trending = () => {
 				<h2>Trending</h2>
 			</header>
 			<div className="grid">
-				{data.gifs.map((item) => (
+				{data.gifs.map((item: Gif) => (
 					<img
 						src={item.images.fixed_width.url}
 						key={item.id}

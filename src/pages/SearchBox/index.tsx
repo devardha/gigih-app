@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateQuery } from "../../redux/reducers/searchReducer";
 import { Box, Button, Container, Flex, Input } from "@chakra-ui/react";
+import { Data, Gif, State } from "src/types";
 
 const Search = () => {
-	const [data, setData] = useState({
+	const [data, setData] = useState<Data>({
 		gifs: [],
 	});
 
-	const query = useSelector((state) => state.search.q);
+	console.log(data);
+
+	const query = useSelector((state: State) => state.search.q);
 	const dispatch = useDispatch();
 
 	const handleOnChange = (e) => {
@@ -17,7 +20,7 @@ const Search = () => {
 
 	const handleSearch = async () => {
 		const res = await fetch(
-			`https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&q=${data.text}`
+			`https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&q=${query}`
 		)
 			.then((res) => res.json())
 			.catch((err) => console.log(err));
@@ -41,7 +44,7 @@ const Search = () => {
 				</Container>
 			</Box>
 			<div className="grid">
-				{data.gifs.map((item) => (
+				{data.gifs.map((item: Gif) => (
 					<img
 						src={item.images.fixed_width.url}
 						key={item.id}
