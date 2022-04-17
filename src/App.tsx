@@ -11,9 +11,10 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import { loadToken, loadUser } from './redux/reducers/userReducer';
 import getQuery from './utils/queryString';
+import { HashResult, State } from './types';
 
 function App() {
-	const { user, accessToken } = useSelector((state) => state.user);
+	const { user, accessToken } = useSelector((state: State) => state.user);
 	const authenticated = user && accessToken !== '';
 	const dispatch = useDispatch();
 
@@ -37,8 +38,9 @@ function App() {
 	}, [accessToken, dispatch]);
 
 	useEffect(() => {
-		if (window.location.hash) {
-			const hash = getQuery(window.location.hash);
+		const locationHash: string = window.location.hash;
+		if (locationHash) {
+			const hash: HashResult = getQuery(locationHash);
 
 			if (hash.access_token) {
 				dispatch(loadToken(hash.access_token));

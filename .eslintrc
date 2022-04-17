@@ -46,6 +46,8 @@
             {
               "endOfLine": "auto"
             }
-        ]
+        ],
+        "camelcase": "off",
+        "no-restricted-globals": "off"
     }
 }

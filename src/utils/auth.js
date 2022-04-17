@@ -1,5 +1,5 @@
 const handleAuth = () => {
-	const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+	const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID || '';
 	const redirectUri =
 		process.env.REACT_APP_BASE_URL || 'http://localhost:3000';
 

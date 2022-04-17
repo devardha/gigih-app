@@ -13,7 +13,8 @@ import {
 	FormControl,
 	useToast,
 } from '@chakra-ui/react';
-import Song from '../../components/Song';
+import SongItem from '../../components/Song';
+import { State, Song } from '../../types';
 
 function Home() {
 	const [formData, setFormData] = useState({
@@ -22,11 +23,13 @@ function Home() {
 	});
 	const toast = useToast();
 
-	const [songs, setSongs] = useState([]);
+	const [songs, setSongs] = useState<Song[]>([]);
 	const [tokenError, setTokenError] = useState(false);
-	const [query, setQuery] = useState('');
-	const [selected, setSelected] = useState([]);
-	const { user, accessToken } = useSelector((state) => state.user);
+	const [query, setQuery] = useState<string>('');
+	const [selected, setSelected] = useState<string[]>([]);
+	const { user, accessToken } = useSelector((state: State) => state.user);
+
+	console.log(user);
 
 	const handleSearch = async () => {
 		if (accessToken && accessToken !== '') {
@@ -57,8 +60,11 @@ function Home() {
 		}
 	};
 
-	const addSongToPlaylist = async (playlistID) => {
-		const filtered = songs.filter((item) => selected.includes(item.href));
+	const addSongToPlaylist = async (playlistID: string) => {
+		const filtered: Song[] = songs.filter((item: Song) =>
+			selected.includes(item.href)
+		);
+
 		const uris =
 			filtered.length > 0 ? filtered.map((item) => item.uri) : [];
 
@@ -143,7 +149,6 @@ function Home() {
 								marginBottom={4}
 							/>
 							<Textarea
-								type="text"
 								placeholder="Title"
 								value={formData.description}
 								onChange={(e) =>
@@ -187,12 +192,12 @@ function Home() {
 							<p>Invalid access token. Please log in</p>
 						)}
 						<Grid templateColumns="repeat(6, 1fr)" gap={6}>
-							{songs.map((item, index) => (
+							{songs.map((item: Song, index: number) => (
 								<GridItem
 									key={`${item.id}${index}`}
 									width="100%"
 								>
-									<Song
+									<SongItem
 										data={item}
 										selected={selected}
 										setSelected={setSelected}
