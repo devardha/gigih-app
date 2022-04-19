@@ -29,8 +29,6 @@ const Home = () => {
 	const [selected, setSelected] = useState<string[]>([]);
 	const { user, accessToken } = useSelector((state: State) => state.user);
 
-	console.log(user);
-
 	const handleSearch = async () => {
 		if (accessToken && accessToken !== '') {
 			fetch(
