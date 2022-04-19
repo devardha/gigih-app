@@ -54,7 +54,11 @@ function App() {
 				<Switch>
 					<div className="App">
 						<Route exact path="/">
-							{authenticated ? <Home /> : <Login />}
+							{authenticated ? (
+								<Redirect to="/create-playlist" />
+							) : (
+								<Login />
+							)}
 						</Route>
 						<Route path="/create-playlist">
 							{authenticated ? <Home /> : <Redirect to="/" />}

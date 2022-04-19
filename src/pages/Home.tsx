@@ -177,6 +177,9 @@ const Home = () => {
 								placeholder="Search"
 								value={query}
 								onChange={(e) => setQuery(e.target.value)}
+								role="search"
+								name="search"
+								id="search"
 							/>
 							<Button
 								type="button"
