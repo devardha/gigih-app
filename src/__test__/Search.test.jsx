@@ -19,11 +19,11 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-test('try to access guest page with token and search', async () => {
+test('Test search api', async () => {
 	window.history.pushState(
 		{},
 		'Home Page',
-		'#access_token=BQCtgRe2fk_EAYc55JZE8foMnkqMStkDps7fg_wgrvcnR-OFrNU1dsycmSUSQdsX18CnqkOiCweP703_cttZL0AZb5yEbNwJr-FA57f8g-RexiCAP-mCakZOETMBUGzub9sn88SE0lzH7LJXrTF3m3gAqHOuD-yCy__VqLP-YyMA_c5eq4kUnhA3Wtnb05Xs8g8v1YUIVA&token_type=Bearer&expires_in=3600'
+		'#access_token=BQCtgRe2fk_EAYc55JZE8foMnkqMStkDps7fg_wgrvcnR-OFrNU5dsycmSUSQdsX18CnqkOiCweP703_cttZL0AZb5yEbNwJr-FA57f8g-RexiCAP-mCakZOETMBUGzuz9sn88SE0lzH7LJXrTF3m3gAqHOuD-yCy__VqLP-YyMA_c5eq4kUnhA3Wtnb05Xs8g8v1YUIVA&token_type=Bearer&expires_in=3600'
 	);
 	render(
 		<Provider store={store}>
