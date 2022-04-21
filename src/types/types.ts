@@ -12,6 +12,7 @@ interface User {
 	product: string
 	type: string
 	uri: string
+	images: any[]
 }
 
 export interface UserState {

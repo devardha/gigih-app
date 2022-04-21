@@ -1,4 +1,12 @@
-import { Box, Button, Container, Flex, Heading, Input } from '@chakra-ui/react';
+import {
+	Box,
+	Button,
+	Container,
+	Flex,
+	Image,
+	Input,
+	Text,
+} from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadSongs } from '../redux/reducers/searchReducer';
@@ -62,7 +70,22 @@ const Navbar = () => {
 							Search
 						</Button>
 					</Flex>
-					{user.id ? <p>Hello, {user.display_name} 👋</p> : ''}
+					{user.id ? (
+						<Flex>
+							<Text>{user.display_name}</Text>
+							{user.images.length > 0 && (
+								<Image
+									w={7}
+									h={7}
+									marginLeft={3}
+									rounded="full"
+									src={user.images[0].url}
+								/>
+							)}
+						</Flex>
+					) : (
+						''
+					)}
 				</Flex>
 			</Container>
 		</Box>

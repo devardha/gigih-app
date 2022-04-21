@@ -13,6 +13,13 @@ import {
 	FormControl,
 	useToast,
 	Text,
+	Modal,
+	ModalOverlay,
+	ModalContent,
+	ModalHeader,
+	ModalCloseButton,
+	ModalBody,
+	ModalFooter,
 } from '@chakra-ui/react';
 import SongItem from '../components/Song';
 import { SearchState, Song, SongState, UserState } from '../types/types';
@@ -24,6 +31,8 @@ const Home = () => {
 		description: '',
 	});
 	const toast = useToast();
+
+	const [modalOpen, setModalOpen] = useState(true);
 
 	const [songss, setSongs] = useState<Song[]>([]);
 	const [tokenError, setTokenError] = useState(false);
@@ -91,7 +100,60 @@ const Home = () => {
 	return (
 		<>
 			<Navbar />
+			<Box position="fixed" w="full">
+				<Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+					<ModalOverlay />
+					<ModalContent>
+						<ModalHeader>Create Playlist</ModalHeader>
+						<ModalCloseButton />
+						<ModalBody>
+							<Input placeholder="Title" marginBottom={3} />
+							<Textarea placeholder="Description (min 10)" />
+						</ModalBody>
+
+						<ModalFooter>
+							<Button background="green.500" color="white">
+								Save
+							</Button>
+						</ModalFooter>
+					</ModalContent>
+				</Modal>
+			</Box>
 			<Box>
+				<Box
+					paddingX={10}
+					paddingY={5}
+					position="fixed"
+					bottom={0}
+					zIndex={100}
+					w="100%"
+				>
+					<Box
+						opacity="100%"
+						background="green.500"
+						height="100%"
+						w="100%"
+						position="absolute"
+						left={0}
+						top={0}
+					/>
+					<Flex
+						justifyContent="space-between"
+						alignItems="center"
+						position="relative"
+						zIndex={100}
+					>
+						<Text fontWeight={600}>8 Songs selected</Text>
+						<Button
+							background="blackAlpha.900"
+							rounded="full"
+							paddingX={8}
+							onClick={() => setModalOpen(true)}
+						>
+							Create
+						</Button>
+					</Flex>
+				</Box>
 				<Container maxW="container.xl" paddingY={4}>
 					{/* <Box marginBottom={16}>
 						<FormControl>
