@@ -14,12 +14,24 @@ interface User {
 	uri: string
 }
 
-export interface State {
+export interface UserState {
 	user: {
 		user: User,
 		accessToken: string
 	};
 	accessToken: string;
+}
+
+export interface SongState {
+	song: {
+		songs: Song[]
+	}
+}
+
+export interface SearchState {
+	search: {
+		results: Song[]
+	}
 }
 
 interface Artist {

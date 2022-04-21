@@ -36,7 +36,9 @@ function Song({ data, selected, setSelected }: Props) {
 						selected?.includes(data.href) ? 'Deselect' : 'Select'
 					}
 					background={
-						selected?.includes(data.href) ? 'black' : 'green.300'
+						selected?.includes(data.href)
+							? 'whiteAlpha.200'
+							: 'green.500'
 					}
 					className={`${
 						selected?.includes(data.href) ? 'selected' : ''

@@ -14,7 +14,16 @@ function AlbumText({ label, data }) {
 		);
 	}
 
-	return <p style={{ fontWeight: label === 'Title' ? 700 : 400 }}>{data}</p>;
+	return (
+		<p
+			style={{
+				fontWeight: label === 'Title' ? 700 : 400,
+				color: label === 'Title' ? '#ffffff' : '#888888',
+			}}
+		>
+			{data}
+		</p>
+	);
 }
 
 export default AlbumText;
