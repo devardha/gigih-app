@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addSong } from '../redux/reducers/songReducer';
@@ -15,13 +15,24 @@ function Song({ data }: Props) {
 	const dispatch = useDispatch();
 	const { selectedSongs } = useSelector((state: SongState) => state.song);
 
+	const msToMinute = (millis: number) => {
+		const minutes: number = Math.floor(millis / 60000);
+		const seconds = ((millis % 60000) / 1000).toFixed(0);
+
+		console.log(seconds);
+		return `${minutes}:${seconds}`;
+	};
+
 	return (
 		<Box key={data.id}>
 			<Image url={data.album.images[0].url} alt="cover" />
 			<Box marginTop={2}>
 				<AlbumText label="Title" data={data.name} />
-				<AlbumText label="Artists" data={data.artists} />
-				<AlbumText label="Album" data={data.album.name} />
+				<Flex justifyContent="space-between">
+					<AlbumText label="Artists" data={data.artists} />
+					<Text color="#777777">{msToMinute(data.duration_ms)}</Text>
+				</Flex>
+
 				<Button
 					type="button"
 					onClick={() => dispatch(addSong(data))}
