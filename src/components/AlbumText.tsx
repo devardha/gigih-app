@@ -19,6 +19,10 @@ function AlbumText({ label, data }) {
 			style={{
 				fontWeight: label === 'Title' ? 700 : 400,
 				color: label === 'Title' ? '#ffffff' : '#888888',
+				textOverflow: 'ellipsis',
+				overflow: 'hidden',
+				whiteSpace: 'nowrap',
+				width: '200px',
 			}}
 		>
 			{data}

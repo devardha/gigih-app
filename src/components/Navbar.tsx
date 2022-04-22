@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 import { loadSongs } from '../redux/reducers/searchReducer';
 import { UserState, Song, SearchState } from '../types/types';
 
@@ -18,8 +19,10 @@ const Navbar = () => {
 	const { results } = useSelector((state: SearchState) => state.search);
 
 	const dispatch = useDispatch();
+	const history = useHistory();
 
 	const handleSearch = async () => {
+		history.push('/create-playlist');
 		if (accessToken && accessToken !== '') {
 			fetch(
 				`https://api.spotify.com/v1/search?q=${encodeURIComponent(

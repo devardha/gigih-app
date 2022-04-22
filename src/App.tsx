@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import { loadToken, loadUser } from './redux/reducers/userReducer';
 import getQuery from './utils/queryString';
 import { HashResult, UserState } from './types/types';
+import Playlist from './pages/Playlist';
 
 function App() {
 	const { user, accessToken } = useSelector((state: UserState) => state.user);
@@ -67,9 +68,9 @@ function App() {
 					<Route path="/create-playlist">
 						{authenticated ? <Home /> : <Redirect to="/" />}
 					</Route>
-					<Box paddingY={10} textAlign="center" color="#777777">
-						Made with ❤️ by ardha
-					</Box>
+					<Route path="/playlist">
+						{authenticated ? <Playlist /> : <Redirect to="/" />}
+					</Route>
 				</Box>
 			</Switch>
 		</Router>

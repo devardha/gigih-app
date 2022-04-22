@@ -15,13 +15,87 @@ import {
 	ModalHeader,
 	ModalOverlay,
 	Textarea,
+	useToast,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { SongState } from '../types/types';
+import { Song, SongState, UserState } from '../types/types';
 
 const CreateNewPlaylist = ({ modalOpen, setModalOpen }: any) => {
 	const { selectedSongs } = useSelector((state: SongState) => state.song);
+	const { user, accessToken } = useSelector((state: UserState) => state.user);
+
+	const [loading, setLoading] = useState(false);
+	const [formData, setFormData] = useState({
+		name: '',
+		description: '',
+	});
+
+	const toast = useToast();
+
+	const addSongToPlaylist = async (playlistID: string) => {
+		const filtered: Song[] = selectedSongs;
+
+		const uris =
+			filtered.length > 0 ? filtered.map((item) => item.uri) : [];
+
+		const body = {
+			uris,
+			position: 0,
+		};
+
+		fetch(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${accessToken}`,
+			},
+			body: JSON.stringify(body),
+		})
+			.then((response) => response.json())
+			.then(() => {
+				setLoading(false);
+				toast({
+					title: 'Playlist created!',
+					description:
+						'Playlist has been created. Open Spotify to see the playlist.',
+					status: 'success',
+					duration: 9000,
+					isClosable: true,
+				});
+			})
+			.catch((err) => {
+				console.log(err);
+				setLoading(false);
+			});
+	};
+
+	const createPlaylist = () => {
+		setLoading(true);
+		const body = {
+			name: formData.name,
+			description: formData.description,
+			public: false,
+			collaborative: false,
+		};
+
+		fetch(`https://api.spotify.com/v1/users/${user.id}/playlists`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${accessToken}`,
+			},
+			body: JSON.stringify(body),
+		})
+			.then((response) => response.json())
+			.then((res) => {
+				addSongToPlaylist(res.id);
+			})
+			.catch((err) => {
+				console.log(err);
+				setLoading(false);
+			});
+	};
 
 	const renderSongsName = (list) =>
 		list.map((item, index) => {
@@ -43,10 +117,24 @@ const CreateNewPlaylist = ({ modalOpen, setModalOpen }: any) => {
 					}}
 				/>
 				<ModalBody>
-					<Input placeholder="Title" marginBottom={3} />
+					<Input
+						placeholder="Title"
+						marginBottom={3}
+						value={formData.name}
+						onChange={(e) =>
+							setFormData({ ...formData, name: e.target.value })
+						}
+					/>
 					<Textarea
 						placeholder="Description (min 10)"
 						minLength={10}
+						value={formData.description}
+						onChange={(e) =>
+							setFormData({
+								...formData,
+								description: e.target.value,
+							})
+						}
 					/>
 					<Accordion allowMultiple marginTop={5}>
 						<AccordionItem border="none">
@@ -78,8 +166,11 @@ const CreateNewPlaylist = ({ modalOpen, setModalOpen }: any) => {
 					<Button
 						background="green.500"
 						color="white"
+						paddingX={8}
+						isLoading={loading}
 						_hover={{ background: 'green.500' }}
 						_active={{ background: 'green.600' }}
+						onClick={() => createPlaylist()}
 					>
 						Save
 					</Button>
