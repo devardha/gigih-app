@@ -3,11 +3,10 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import userEvent from '@testing-library/user-event';
-import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from '../App';
 import store from '../redux/store';
-import result from './results.json';
+import result from './results/search.json';
 
 const server = setupServer(
 	rest.get('https://api.spotify.com/v1/search', (req, res, ctx) =>

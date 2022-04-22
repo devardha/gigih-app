@@ -8,7 +8,6 @@ import data from '../data/lottie/spotify-logo.json';
 const Sidebar = () => {
 	const location = useLocation();
 
-	console.log(location);
 	return (
 		<Box
 			w="240px"
@@ -18,18 +17,20 @@ const Sidebar = () => {
 			top={0}
 			h="100vh"
 		>
-			<Flex
-				paddingX={8}
-				paddingY={5}
-				justifyContent="start"
-				alignItems="center"
-				marginBottom={6}
-			>
-				<RenderLottie data={data} h={10} />
-				<Text fontSize={20} fontWeight="bold" marginLeft={2}>
-					Gigihtify
-				</Text>
-			</Flex>
+			<Link to="/create-playlist">
+				<Flex
+					paddingX={8}
+					paddingY={5}
+					justifyContent="start"
+					alignItems="center"
+					marginBottom={6}
+				>
+					<RenderLottie data={data} h={10} />
+					<Text fontSize={20} fontWeight="bold" marginLeft={2}>
+						Gigihtify
+					</Text>
+				</Flex>
+			</Link>
 			<Box paddingX={8}>
 				<Link to="/create-playlist">
 					<Text

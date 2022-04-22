@@ -35,7 +35,6 @@ const PlaylistDetail = () => {
 
 	const getPlaylist = async (playlistID) => {
 		if (accessToken && accessToken !== '') {
-			console.log(playlistID);
 			fetch(`https://api.spotify.com/v1/playlists/${playlistID}`, {
 				headers: {
 					'Content-Type': 'application/json',
@@ -51,7 +50,6 @@ const PlaylistDetail = () => {
 
 	const getPlaylistTracks = async (playlistID) => {
 		if (accessToken && accessToken !== '') {
-			console.log(playlistID);
 			fetch(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {
 				headers: {
 					'Content-Type': 'application/json',
@@ -95,8 +93,6 @@ const PlaylistDetail = () => {
 			getPlaylistTracks(params.id);
 		}
 	}, [params]);
-
-	console.log(new Date('2022-04-22T11:35:59Z'));
 
 	return (
 		<>

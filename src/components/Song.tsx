@@ -16,6 +16,8 @@ function Song({ data }: Props) {
 	const dispatch = useDispatch();
 	const { selectedSongs } = useSelector((state: SongState) => state.song);
 
+	console.log(data);
+
 	return (
 		<Box key={data.id}>
 			<Image url={data.album.images[0].url} alt="cover" />
