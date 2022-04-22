@@ -30,7 +30,7 @@ const Home = () => {
 				modalOpen={modalOpen}
 				setModalOpen={setModalOpen}
 			/>
-			<Box>
+			<Box paddingLeft="240px">
 				{selectedSongs.length > 0 && (
 					<BottomNav
 						selectedSongs={selectedSongs}
@@ -53,7 +53,7 @@ const Home = () => {
 						)}
 						{results.length > 0 && (
 							<Grid
-								templateColumns="repeat(5, 1fr)"
+								templateColumns="repeat(4, 1fr)"
 								gap={6}
 								rowGap={20}
 								paddingBottom={20}

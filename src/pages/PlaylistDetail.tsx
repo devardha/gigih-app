@@ -199,7 +199,7 @@ const PlaylistDetail = () => {
 				</ModalContent>
 			</Modal>
 			{playlist && (
-				<Box paddingBottom={20}>
+				<Box paddingBottom={20} paddingLeft="240px">
 					<Container maxW="container.xl">
 						<Box height={240}>
 							<Flex

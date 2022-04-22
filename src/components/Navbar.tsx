@@ -46,7 +46,7 @@ const Navbar = () => {
 	};
 
 	return (
-		<Box marginBottom={5}>
+		<Box marginBottom={5} paddingLeft="240px">
 			<Container maxW="container.xl" paddingY={5}>
 				<Flex justifyContent="space-between" color="white">
 					<Flex flex={1} alignItems="center">

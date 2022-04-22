@@ -42,7 +42,7 @@ const Playlist = () => {
 		<>
 			<Navbar />
 			<Sidebar />
-			<Box>
+			<Box paddingLeft="240px">
 				<Container maxW="container.xl" paddingY={4}>
 					<Box>
 						<Box marginBottom={8}>
