@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Song } from '../../types/types';
 
 export interface State {
-	selectedSongs: any[];
+	selectedSongs: Song[];
 }
 
 const SongSlice = createSlice({

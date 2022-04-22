@@ -14,12 +14,12 @@ import {
 import React, { useState } from 'react';
 import { RiCloseLine } from 'react-icons/ri';
 import { useSelector } from 'react-redux';
-import { UserState } from '../types/types';
+import { PlaylistType, UserState } from '../types/types';
 import AlbumText from './AlbumText';
 import Image from './Image';
 
 interface Props {
-	data: any;
+	data: PlaylistType;
 	removePlaylist(arg1: string): void;
 }
 

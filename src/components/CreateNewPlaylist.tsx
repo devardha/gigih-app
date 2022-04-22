@@ -21,7 +21,12 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Song, SongState, UserState } from '../types/types';
 
-const CreateNewPlaylist = ({ modalOpen, setModalOpen }: any) => {
+interface Props {
+	modalOpen: boolean;
+	setModalOpen(arg1: boolean): void;
+}
+
+const CreateNewPlaylist = ({ modalOpen, setModalOpen }: Props) => {
 	const { selectedSongs } = useSelector((state: SongState) => state.song);
 	const { user, accessToken } = useSelector((state: UserState) => state.user);
 

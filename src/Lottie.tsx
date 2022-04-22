@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import lottie from 'lottie-web';
 import { Box } from '@chakra-ui/react';
 
-const RenderLottie = ({ data, ...rest }: any) => {
+const RenderLottie = ({ data, ...rest }) => {
 	const element = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {

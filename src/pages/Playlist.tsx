@@ -8,7 +8,7 @@ import {
 	Text,
 	Grid,
 } from '@chakra-ui/react';
-import { SearchState, Song, UserState } from '../types/types';
+import { PlaylistType, SearchState, Song, UserState } from '../types/types';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import SongItem from '../components/Song';
@@ -17,7 +17,7 @@ import PlaylistItem from '../components/PlaylistItem';
 const Playlist = () => {
 	const { results } = useSelector((state: SearchState) => state.search);
 	const { accessToken } = useSelector((state: UserState) => state.user);
-	const [playlist, setPlaylist] = useState<any>([]);
+	const [playlist, setPlaylist] = useState<PlaylistType[]>([]);
 
 	const handleSearch = async () => {
 		if (accessToken && accessToken !== '') {
@@ -72,17 +72,19 @@ const Playlist = () => {
 							rowGap={6}
 							paddingBottom={20}
 						>
-							{playlist.map((item: any, index: number) => (
-								<GridItem
-									key={`${item.id}${index}`}
-									width="100%"
-								>
-									<PlaylistItem
-										data={item}
-										removePlaylist={removePlaylist}
-									/>
-								</GridItem>
-							))}
+							{playlist.map(
+								(item: PlaylistType, index: number) => (
+									<GridItem
+										key={`${item.id}${index}`}
+										width="100%"
+									>
+										<PlaylistItem
+											data={item}
+											removePlaylist={removePlaylist}
+										/>
+									</GridItem>
+								)
+							)}
 						</Grid>
 					)}
 				</Container>

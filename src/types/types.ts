@@ -1,3 +1,5 @@
+import { Image } from "@chakra-ui/react";
+
 export interface HashResult {
 	access_token?: string;
 }
@@ -12,7 +14,23 @@ interface User {
 	product: string
 	type: string
 	uri: string
-	images: any[]
+	images: Image[]
+}
+
+export interface PlaylistType {
+	collaborative: boolean
+	description: string
+	external_urls: {spotify: string}
+	href: string
+	id: string
+	images: Image[]
+	name: string
+	owner: {display_name: string, id: string}
+	primary_color: null
+	public: boolean
+	snapshot_id: string
+	type: string
+	uri: string
 }
 
 export interface UserState {
