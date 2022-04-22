@@ -34,6 +34,8 @@ function Login() {
 					onClick={() => handleAuth()}
 					background="green.500"
 					color="white"
+					_hover={{ background: 'green.500' }}
+					_active={{ background: 'green.600' }}
 				>
 					Login with Spotify
 				</Button>

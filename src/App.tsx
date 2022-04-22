@@ -6,7 +6,7 @@ import {
 	Redirect,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, ChakraProvider } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import { loadToken, loadUser } from './redux/reducers/userReducer';
@@ -49,29 +49,27 @@ function App() {
 	}, [dispatch]);
 
 	return (
-		<ChakraProvider>
-			<Router>
-				<Switch>
-					<Box
-						className="App"
-						background="blackAlpha.900"
-						color="white"
-						minH="100vh"
-					>
-						<Route exact path="/">
-							{authenticated ? (
-								<Redirect to="/create-playlist" />
-							) : (
-								<Login />
-							)}
-						</Route>
-						<Route path="/create-playlist">
-							{authenticated ? <Home /> : <Redirect to="/" />}
-						</Route>
-					</Box>
-				</Switch>
-			</Router>
-		</ChakraProvider>
+		<Router>
+			<Switch>
+				<Box
+					className="App"
+					background="blackAlpha.900"
+					color="white"
+					minH="100vh"
+				>
+					<Route exact path="/">
+						{authenticated ? (
+							<Redirect to="/create-playlist" />
+						) : (
+							<Login />
+						)}
+					</Route>
+					<Route path="/create-playlist">
+						{authenticated ? <Home /> : <Redirect to="/" />}
+					</Route>
+				</Box>
+			</Switch>
+		</Router>
 	);
 }
 

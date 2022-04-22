@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	Input,
 	Textarea,
@@ -24,6 +24,9 @@ import {
 import SongItem from '../components/Song';
 import { SearchState, Song, SongState, UserState } from '../types/types';
 import Navbar from '../components/Navbar';
+import { addSong } from '../redux/reducers/songReducer';
+import CreateNewPlaylist from '../components/CreateNewPlaylist';
+import BottomNav from '../components/BottomNav';
 
 const Home = () => {
 	const [formData, setFormData] = useState({
@@ -32,14 +35,11 @@ const Home = () => {
 	});
 	const toast = useToast();
 
-	const [modalOpen, setModalOpen] = useState(true);
-
-	const [songss, setSongs] = useState<Song[]>([]);
-	const [tokenError, setTokenError] = useState(false);
-	const [query, setQuery] = useState<string>('');
-	const [selected, setSelected] = useState<string[]>([]);
+	const [modalOpen, setModalOpen] = useState(false);
+	const dispatch = useDispatch();
 	const { user, accessToken } = useSelector((state: UserState) => state.user);
 	const { results } = useSelector((state: SearchState) => state.search);
+	const { selectedSongs } = useSelector((state: SongState) => state.song);
 
 	// const addSongToPlaylist = async (playlistID: string) => {
 	// 	const filtered: Song[] = songs.filter((item: Song) =>
@@ -100,60 +100,17 @@ const Home = () => {
 	return (
 		<>
 			<Navbar />
-			<Box position="fixed" w="full">
-				<Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-					<ModalOverlay />
-					<ModalContent>
-						<ModalHeader>Create Playlist</ModalHeader>
-						<ModalCloseButton />
-						<ModalBody>
-							<Input placeholder="Title" marginBottom={3} />
-							<Textarea placeholder="Description (min 10)" />
-						</ModalBody>
-
-						<ModalFooter>
-							<Button background="green.500" color="white">
-								Save
-							</Button>
-						</ModalFooter>
-					</ModalContent>
-				</Modal>
-			</Box>
+			<CreateNewPlaylist
+				modalOpen={modalOpen}
+				setModalOpen={setModalOpen}
+			/>
 			<Box>
-				<Box
-					paddingX={10}
-					paddingY={5}
-					position="fixed"
-					bottom={0}
-					zIndex={100}
-					w="100%"
-				>
-					<Box
-						opacity="100%"
-						background="green.500"
-						height="100%"
-						w="100%"
-						position="absolute"
-						left={0}
-						top={0}
+				{selectedSongs.length > 0 && (
+					<BottomNav
+						selectedSongs={selectedSongs}
+						setModalOpen={setModalOpen}
 					/>
-					<Flex
-						justifyContent="space-between"
-						alignItems="center"
-						position="relative"
-						zIndex={100}
-					>
-						<Text fontWeight={600}>8 Songs selected</Text>
-						<Button
-							background="blackAlpha.900"
-							rounded="full"
-							paddingX={8}
-							onClick={() => setModalOpen(true)}
-						>
-							Create
-						</Button>
-					</Flex>
-				</Box>
+				)}
 				<Container maxW="container.xl" paddingY={4}>
 					{/* <Box marginBottom={16}>
 						<FormControl>
@@ -211,11 +168,7 @@ const Home = () => {
 									key={`${item.id}${index}`}
 									width="100%"
 								>
-									<SongItem
-										data={item}
-										selected={selected}
-										setSelected={setSelected}
-									/>
+									<SongItem data={item} />
 								</GridItem>
 							))}
 						</Grid>

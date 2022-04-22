@@ -1,26 +1,19 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react';
-import { Song as SongType } from '../types/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addSong } from '../redux/reducers/songReducer';
+import { Song as SongType, SongState } from '../types/types';
 import AlbumText from './AlbumText';
 import Button from './Button';
 import Image from './Image';
 
 interface Props {
 	data: SongType;
-	selected: string[];
-	setSelected(arg1: string[]): void;
 }
 
-function Song({ data, selected, setSelected }: Props) {
-	const handleSelect = (song, selected, setSelected) => {
-		if (selected.includes(song.href)) {
-			const filtered = selected.filter((item) => item !== song.href);
-			setSelected(filtered);
-		} else {
-			const newList = [...selected, song.href];
-			setSelected(newList);
-		}
-	};
+function Song({ data }: Props) {
+	const dispatch = useDispatch();
+	const { selectedSongs } = useSelector((state: SongState) => state.song);
 
 	return (
 		<Box key={data.id}>
@@ -31,17 +24,19 @@ function Song({ data, selected, setSelected }: Props) {
 				<AlbumText label="Album" data={data.album.name} />
 				<Button
 					type="button"
-					onClick={() => handleSelect(data, selected, setSelected)}
+					onClick={() => dispatch(addSong(data.href))}
 					value={
-						selected?.includes(data.href) ? 'Deselect' : 'Select'
+						selectedSongs?.includes(data.href)
+							? 'Deselect'
+							: 'Select'
 					}
 					background={
-						selected?.includes(data.href)
+						selectedSongs?.includes(data.href)
 							? 'whiteAlpha.200'
 							: 'green.500'
 					}
 					className={`${
-						selected?.includes(data.href) ? 'selected' : ''
+						selectedSongs?.includes(data.href) ? 'selected' : ''
 					}`}
 				/>
 			</Box>
