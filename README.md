@@ -1,6 +1,6 @@
 # Gigihtify
 
-An application for those of you who want to easily create spotify playlists. *Frontend final project Generasi GIGIH 2.0.* 
+Gigihtify is an application that allows you to easily search for songs, create playlists, and manage your Spotify playlists.
 
 ## Installation
 
@@ -19,15 +19,17 @@ npm start
 ```
 
 ## Features
+
+### Requirement Features
 - Spotify login
 - Search tracks
 - Select/unselect track
-- Create playlist
+- Create a playlist with a title and description
+- Redux for state management
 
 ## Additional Features
 - Show profile picture
-- Lottie animation
-- Playlist page
+- My Playlist page
 - Delete playlist
 - Playlist detail
 - Remove track from playlist

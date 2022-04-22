@@ -23,7 +23,7 @@ import {
 	Tr,
 	useToast,
 } from '@chakra-ui/react';
-import { Redirect, useHistory, useParams } from 'react-router-dom';
+import { Link, Redirect, useHistory, useParams } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
 import { format } from 'date-fns';
 import { PlaylistType, Song, UserState } from '../types/types';
@@ -273,37 +273,64 @@ const PlaylistDetail = () => {
 													{index + 1}
 												</Td>
 												<Td borderColor="#222222">
-													<Flex>
-														<Image
-															src={
-																item.track.album
-																	.images[0]
-																	.url
-															}
-															w={14}
-														/>
-														<Box marginLeft={4}>
-															<Text
-																marginBottom={2}
-																fontWeight="bold"
-																fontSize={18}
-															>
-																{
+													<a
+														href={
+															item.track
+																.external_urls
+																.spotify
+														}
+													>
+														<Flex>
+															<Image
+																src={
 																	item.track
-																		.name
+																		.album
+																		.images[0]
+																		.url
 																}
-															</Text>
-															<Text color="#777777">
-																{item.track.artists.map(
-																	(artist) =>
-																		artist.name
-																)}
-															</Text>
-														</Box>
-													</Flex>
+																w={14}
+															/>
+															<Box marginLeft={4}>
+																<Text
+																	marginBottom={
+																		2
+																	}
+																	fontWeight="bold"
+																	fontSize={
+																		18
+																	}
+																	textOverflow="ellipsis"
+																	overflow="hidden"
+																	whiteSpace="nowrap"
+																	width="360px"
+																>
+																	{
+																		item
+																			.track
+																			.name
+																	}
+																</Text>
+																<Text color="#777777">
+																	{item.track.artists.map(
+																		(
+																			artist
+																		) =>
+																			artist.name
+																	)}
+																</Text>
+															</Box>
+														</Flex>
+													</a>
 												</Td>
 												<Td borderColor="#222222">
-													{item.track.album.name}
+													<Text
+														textOverflow="ellipsis"
+														overflow="hidden"
+														whiteSpace="nowrap"
+														width="280px"
+													>
+														{item.track.album.name}
+													</Text>
 												</Td>
 												<Td borderColor="#222222">
 													{format(
