@@ -10,6 +10,7 @@ import {
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
+import { MdLogout } from 'react-icons/md';
 import { loadSongs } from '../redux/reducers/searchReducer';
 import { UserState, Song, SearchState } from '../types/types';
 
@@ -48,7 +49,7 @@ const Navbar = () => {
 		<Box marginBottom={5}>
 			<Container maxW="container.xl" paddingY={5}>
 				<Flex justifyContent="space-between" color="white">
-					<Flex flex={1}>
+					<Flex flex={1} alignItems="center">
 						<Input
 							placeholder="Search"
 							maxW="xl"
@@ -76,7 +77,7 @@ const Navbar = () => {
 						</Button>
 					</Flex>
 					{user.id ? (
-						<Flex>
+						<Flex alignItems="center">
 							<Text>{user.display_name}</Text>
 							{user.images.length > 0 && (
 								<Image
@@ -91,6 +92,11 @@ const Navbar = () => {
 					) : (
 						''
 					)}
+					<Flex alignItems="center" marginLeft={4}>
+						<a href="/">
+							<MdLogout fontSize={24} />
+						</a>
+					</Flex>
 				</Flex>
 			</Container>
 		</Box>

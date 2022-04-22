@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addSong } from '../redux/reducers/songReducer';
 import { Song as SongType, SongState } from '../types/types';
+import msToMinute from '../utils/duration';
 import AlbumText from './AlbumText';
 import Button from './Button';
 import Image from './Image';
@@ -14,12 +15,6 @@ interface Props {
 function Song({ data }: Props) {
 	const dispatch = useDispatch();
 	const { selectedSongs } = useSelector((state: SongState) => state.song);
-
-	const msToMinute = (millis: number) => {
-		const minutes: number = Math.floor(millis / 60000);
-		const seconds = ((millis % 60000) / 1000).toFixed(0);
-		return `${minutes}:${seconds}`;
-	};
 
 	return (
 		<Box key={data.id}>

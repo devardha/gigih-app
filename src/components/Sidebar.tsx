@@ -8,6 +8,7 @@ import data from '../data/lottie/spotify-logo.json';
 const Sidebar = () => {
 	const location = useLocation();
 
+	console.log(location);
 	return (
 		<Box
 			w="240px"
@@ -55,7 +56,7 @@ const Sidebar = () => {
 						display="flex"
 						alignItems="center"
 						color={
-							location.pathname === '/playlist'
+							location.pathname.includes('/playlist')
 								? '#ffffff'
 								: '#777777'
 						}

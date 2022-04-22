@@ -52,18 +52,12 @@ const Playlist = () => {
 			<Box>
 				<Container maxW="container.xl" paddingY={4}>
 					<Box>
-						{results.length > 0 && (
-							<Box marginBottom={8}>
-								<Heading
-									as="h2"
-									fontSize="3xl"
-									marginBottom={2}
-								>
-									My Playlist
-								</Heading>
-								<Text>Showing {playlist.length} playlist</Text>
-							</Box>
-						)}
+						<Box marginBottom={8}>
+							<Heading as="h2" fontSize="3xl" marginBottom={2}>
+								My Playlist
+							</Heading>
+							<Text>Showing {playlist.length} playlist</Text>
+						</Box>
 					</Box>
 					{playlist.length > 0 && (
 						<Grid

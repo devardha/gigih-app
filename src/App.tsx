@@ -13,6 +13,7 @@ import { loadToken, loadUser } from './redux/reducers/userReducer';
 import getQuery from './utils/queryString';
 import { HashResult, UserState } from './types/types';
 import Playlist from './pages/Playlist';
+import PlaylistDetail from './pages/PlaylistDetail';
 
 function App() {
 	const { user, accessToken } = useSelector((state: UserState) => state.user);
@@ -68,8 +69,15 @@ function App() {
 					<Route path="/create-playlist">
 						{authenticated ? <Home /> : <Redirect to="/" />}
 					</Route>
-					<Route path="/playlist">
+					<Route exact path="/playlist">
 						{authenticated ? <Playlist /> : <Redirect to="/" />}
+					</Route>
+					<Route exact path="/playlist/:id">
+						{authenticated ? (
+							<PlaylistDetail />
+						) : (
+							<Redirect to="/" />
+						)}
 					</Route>
 				</Box>
 			</Switch>

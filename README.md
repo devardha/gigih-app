@@ -19,16 +19,18 @@ npm start
 ```
 
 ## Features
-- Spotify Login
-- Search Tracks
-- Select/Unselect Track
-- Create Playlist
+- Spotify login
+- Search tracks
+- Select/unselect track
+- Create playlist
 
 ## Additional Features
-- Show Profile Picture
-- Lottie Animation
+- Show profile picture
+- Lottie animation
 - Playlist page
 - Delete playlist
+- Playlist detail
+- Remove track from playlist
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
