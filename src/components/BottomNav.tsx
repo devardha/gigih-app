@@ -10,6 +10,7 @@ const BottomNav = ({ selectedSongs, setModalOpen }) => (
 		zIndex={100}
 		w="100%"
 		shadow="2xl"
+		left={0}
 	>
 		<Box
 			opacity="100%"
