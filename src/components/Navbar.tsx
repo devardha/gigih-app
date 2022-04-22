@@ -65,12 +65,12 @@ const Navbar = () => {
 							id="search"
 						/>
 						<Button
-							background="green.500"
+							background="#1DB954"
 							rounded="full"
 							marginLeft={2}
 							onClick={() => handleSearch()}
-							_hover={{ background: 'green.500' }}
-							_active={{ background: 'green.600' }}
+							_hover={{ background: '#1CAF50' }}
+							_active={{ background: '#1CAF50' }}
 						>
 							Search
 						</Button>

@@ -10,8 +10,8 @@ function Button({ value, ...rest }) {
 			color="white"
 			marginTop={4}
 			rounded="full"
-			_hover={{ background: 'green.500' }}
-			_active={{ background: 'green.600' }}
+			_hover={{ background: '#1CAF50' }}
+			_active={{ background: '#1CAF50' }}
 		>
 			{value}
 		</ChakraButton>

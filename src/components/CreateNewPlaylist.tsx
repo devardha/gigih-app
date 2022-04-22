@@ -164,12 +164,12 @@ const CreateNewPlaylist = ({ modalOpen, setModalOpen }: any) => {
 
 				<ModalFooter>
 					<Button
-						background="green.500"
+						background="#1DB954"
 						color="white"
 						paddingX={8}
 						isLoading={loading}
-						_hover={{ background: 'green.500' }}
-						_active={{ background: 'green.600' }}
+						_hover={{ background: '#1CAF50' }}
+						_active={{ background: '#1CAF50' }}
 						onClick={() => createPlaylist()}
 					>
 						Save

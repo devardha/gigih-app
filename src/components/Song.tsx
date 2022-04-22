@@ -31,7 +31,7 @@ function Song({ data }: Props) {
 					background={
 						selectedSongs?.includes(data)
 							? 'whiteAlpha.200'
-							: 'green.500'
+							: '#1DB954'
 					}
 					className={`${
 						selectedSongs?.includes(data) ? 'selected' : ''

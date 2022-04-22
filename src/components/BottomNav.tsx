@@ -13,7 +13,7 @@ const BottomNav = ({ selectedSongs, setModalOpen }) => (
 	>
 		<Box
 			opacity="100%"
-			background="green.500"
+			background="#1DB954"
 			height="100%"
 			w="100%"
 			position="absolute"
