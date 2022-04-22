@@ -102,7 +102,7 @@ const UpdatePlaylist = ({
 				/>
 				<ModalBody>
 					<Input
-						placeholder="Title"
+						placeholder="Title (min 10)"
 						marginBottom={3}
 						value={formData.name}
 						minLength={10}
@@ -112,7 +112,7 @@ const UpdatePlaylist = ({
 						}
 					/>
 					<Textarea
-						placeholder="Description (min 10)"
+						placeholder="Description"
 						value={formData.description}
 						onChange={(e) =>
 							setFormData({
