@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, Button, Flex, Text, Heading } from '@chakra-ui/react';
 import handleAuth from '../utils/auth';
+import RenderLottie from '../Lottie';
+import data from '../data/lottie/spotify-logo.json';
 
 function Login() {
 	return (
@@ -12,6 +14,9 @@ function Login() {
 				height="100vh"
 			>
 				<Box marginBottom={10} maxW="lg">
+					<Flex justifyContent="center">
+						<RenderLottie data={data} w={300} />
+					</Flex>
 					<Heading
 						as="h1"
 						fontSize={52}

@@ -24,19 +24,17 @@ function Song({ data }: Props) {
 				<AlbumText label="Album" data={data.album.name} />
 				<Button
 					type="button"
-					onClick={() => dispatch(addSong(data.href))}
+					onClick={() => dispatch(addSong(data))}
 					value={
-						selectedSongs?.includes(data.href)
-							? 'Deselect'
-							: 'Select'
+						selectedSongs?.includes(data) ? 'Deselect' : 'Select'
 					}
 					background={
-						selectedSongs?.includes(data.href)
+						selectedSongs?.includes(data)
 							? 'whiteAlpha.200'
 							: 'green.500'
 					}
 					className={`${
-						selectedSongs?.includes(data.href) ? 'selected' : ''
+						selectedSongs?.includes(data) ? 'selected' : ''
 					}`}
 				/>
 			</Box>

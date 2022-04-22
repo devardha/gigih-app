@@ -25,7 +25,7 @@ export interface UserState {
 
 export interface SongState {
 	song: {
-		selectedSongs: string[]
+		selectedSongs: Song[]
 	}
 }
 

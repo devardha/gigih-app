@@ -67,6 +67,9 @@ function App() {
 					<Route path="/create-playlist">
 						{authenticated ? <Home /> : <Redirect to="/" />}
 					</Route>
+					<Box paddingY={10} textAlign="center" color="#777777">
+						Made with ❤️ by ardha
+					</Box>
 				</Box>
 			</Switch>
 		</Router>

@@ -11,9 +11,13 @@ const SongSlice = createSlice({
 	},
 	reducers: {
 		addSong: (state, action) => {
-			if (state.selectedSongs.includes(action.payload)) {
+			if (
+				state.selectedSongs.filter(
+					(song) => song.href === action.payload.href
+				).length > 0
+			) {
 				const filtered = state.selectedSongs.filter(
-					(item) => item !== action.payload
+					(item) => item.href !== action.payload.href
 				);
 				state.selectedSongs = filtered;
 			} else {
