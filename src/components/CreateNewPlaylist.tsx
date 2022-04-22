@@ -75,7 +75,7 @@ const CreateNewPlaylist = ({ modalOpen, setModalOpen }: Props) => {
 	};
 
 	const createPlaylist = () => {
-		if (formData.description.length < 10) return;
+		if (formData.name.length < 10) return;
 
 		setLoading(true);
 		const body = {
@@ -126,15 +126,15 @@ const CreateNewPlaylist = ({ modalOpen, setModalOpen }: Props) => {
 						placeholder="Title"
 						marginBottom={3}
 						value={formData.name}
+						minLength={10}
+						isInvalid={formData.name.length < 10}
 						onChange={(e) =>
 							setFormData({ ...formData, name: e.target.value })
 						}
 					/>
 					<Textarea
 						placeholder="Description (min 10)"
-						minLength={10}
 						value={formData.description}
-						isInvalid={formData.description.length < 10}
 						onChange={(e) =>
 							setFormData({
 								...formData,
