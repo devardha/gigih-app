@@ -27,11 +27,15 @@ interface PlaylistTrack {
 	added_at: string;
 }
 
+interface Params {
+	id: string;
+}
+
 const PlaylistDetail = () => {
 	const { accessToken } = useSelector((state: UserState) => state.user);
 	const [playlist, setPlaylist] = useState<PlaylistType>();
 	const [playlistItems, setPlaylistItems] = useState<PlaylistTrack[]>([]);
-	const params: any = useParams();
+	const params: Params = useParams();
 
 	const getPlaylist = async (playlistID) => {
 		if (accessToken && accessToken !== '') {
@@ -195,9 +199,7 @@ const PlaylistDetail = () => {
 															</Text>
 															<Text color="#777777">
 																{item.track.artists.map(
-																	(
-																		artist: any
-																	) =>
+																	(artist) =>
 																		artist.name
 																)}
 															</Text>
