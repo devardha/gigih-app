@@ -8,14 +8,12 @@ import {
 	Text,
 	Grid,
 } from '@chakra-ui/react';
-import { PlaylistType, SearchState, Song, UserState } from '../types/types';
+import { PlaylistType, UserState } from '../types/types';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
-import SongItem from '../components/Song';
 import PlaylistItem from '../components/PlaylistItem';
 
 const Playlist = () => {
-	const { results } = useSelector((state: SearchState) => state.search);
 	const { accessToken } = useSelector((state: UserState) => state.user);
 	const [playlist, setPlaylist] = useState<PlaylistType[]>([]);
 
@@ -34,11 +32,6 @@ const Playlist = () => {
 					}
 				});
 		}
-	};
-
-	const removePlaylist = (id: string) => {
-		const filtered = playlist.filter((item) => item.id !== id);
-		setPlaylist(filtered);
 	};
 
 	useEffect(() => {
@@ -72,10 +65,7 @@ const Playlist = () => {
 										key={`${item.id}${index}`}
 										width="100%"
 									>
-										<PlaylistItem
-											data={item}
-											removePlaylist={removePlaylist}
-										/>
+										<PlaylistItem data={item} />
 									</GridItem>
 								)
 							)}

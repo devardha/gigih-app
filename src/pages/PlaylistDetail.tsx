@@ -2,9 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
 	Box,
+	Button,
 	Container,
 	Flex,
 	Image,
+	Modal,
+	ModalBody,
+	ModalCloseButton,
+	ModalContent,
+	ModalFooter,
+	ModalHeader,
+	ModalOverlay,
 	Table,
 	TableContainer,
 	Tbody,
@@ -13,8 +21,9 @@ import {
 	Th,
 	Thead,
 	Tr,
+	useToast,
 } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
+import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
 import { format } from 'date-fns';
 import { PlaylistType, Song, UserState } from '../types/types';
@@ -35,6 +44,9 @@ const PlaylistDetail = () => {
 	const { accessToken } = useSelector((state: UserState) => state.user);
 	const [playlist, setPlaylist] = useState<PlaylistType>();
 	const [playlistItems, setPlaylistItems] = useState<PlaylistTrack[]>([]);
+	const [modalOpen, setModalOpen] = useState(false);
+	const [loading, setLoading] = useState(false);
+
 	const params: Params = useParams();
 
 	const getPlaylist = async (playlistID) => {
@@ -91,6 +103,34 @@ const PlaylistDetail = () => {
 		}
 	};
 
+	const toast = useToast();
+	const history = useHistory();
+
+	const deletePlaylist = (id, name) => {
+		setLoading(true);
+		fetch(`https://api.spotify.com/v1/playlists/${id}/followers`, {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${accessToken}`,
+			},
+		})
+			.then(() => {
+				setLoading(false);
+				toast({
+					title: 'Playlist deleted!',
+					description: `Playlist '${name}' has been deleted`,
+					status: 'success',
+					duration: 9000,
+					isClosable: true,
+				});
+				history.push('/playlist');
+			})
+			.catch((err) => {
+				setLoading(false);
+			});
+	};
+
 	useEffect(() => {
 		if (params.id) {
 			getPlaylist(params.id);
@@ -102,11 +142,59 @@ const PlaylistDetail = () => {
 		<>
 			<Navbar />
 			<Sidebar />
+			<Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+				<ModalOverlay />
+				<ModalContent>
+					<ModalHeader>Delete Playlist</ModalHeader>
+					<ModalCloseButton
+						_focus={{
+							boxShadow: 'none',
+						}}
+					/>
+					<ModalBody>
+						<Text>
+							Are you sure want to delet playlist &apos;
+							{playlist?.name}&apos;?
+						</Text>
+					</ModalBody>
+
+					<ModalFooter display="flex" justifyContent="center">
+						<Button
+							background="#1DB954"
+							rounded="full"
+							_hover={{ background: '#1CAF50' }}
+							_active={{ background: '#1CAF50' }}
+							mr={3}
+							onClick={() => setModalOpen(false)}
+							color="white"
+						>
+							Close
+						</Button>
+						<Button
+							background="#EF266E"
+							rounded="full"
+							color="white"
+							_hover={{ background: '#EF266E' }}
+							_active={{ background: '#EF266E' }}
+							isLoading={loading}
+							onClick={() =>
+								deletePlaylist(playlist?.id, playlist?.name)
+							}
+						>
+							Delete
+						</Button>
+					</ModalFooter>
+				</ModalContent>
+			</Modal>
 			{playlist && (
 				<Box paddingBottom={20}>
 					<Container maxW="container.xl">
 						<Box height={240}>
-							<Flex height="full" alignItems="end">
+							<Flex
+								height="full"
+								alignItems="end"
+								position="relative"
+							>
 								<Image
 									height="full"
 									src={playlist.images[0].url}
@@ -119,12 +207,20 @@ const PlaylistDetail = () => {
 									>
 										{playlist.name}
 									</Text>
-									<Text marginBottom={4}>
+									<Text marginBottom={1}>
 										{playlist.description}
 									</Text>
-									<Text color="#777777">
+									<Text color="#777777" marginBottom={8}>
 										by {playlist.owner.display_name}
 									</Text>
+									<Button
+										background="#EF266E"
+										_hover={{ background: '#EF266E' }}
+										_active={{ background: '#EF266E' }}
+										onClick={() => setModalOpen(true)}
+									>
+										Delete Playlist
+									</Button>
 								</Box>
 							</Flex>
 						</Box>
