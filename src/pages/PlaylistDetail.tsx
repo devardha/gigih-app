@@ -30,6 +30,7 @@ import { PlaylistType, Song, UserState } from '../types/types';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import msToMinute from '../utils/duration';
+import UpdatePlaylist from '../components/UpdatePlaylist';
 
 interface PlaylistTrack {
 	track: Song;
@@ -45,9 +46,12 @@ const PlaylistDetail = () => {
 	const [playlist, setPlaylist] = useState<PlaylistType>();
 	const [playlistItems, setPlaylistItems] = useState<PlaylistTrack[]>([]);
 	const [modalOpen, setModalOpen] = useState(false);
+	const [modalEdit, setModalEdit] = useState(false);
 	const [loading, setLoading] = useState(false);
 
 	const params: Params = useParams();
+
+	console.log(playlist);
 
 	const getPlaylist = async (playlistID) => {
 		if (accessToken && accessToken !== '') {
@@ -142,6 +146,14 @@ const PlaylistDetail = () => {
 		<>
 			<Navbar />
 			<Sidebar />
+			{playlist && (
+				<UpdatePlaylist
+					modalOpen={modalEdit}
+					setModalOpen={setModalEdit}
+					data={playlist}
+					setPlaylist={setPlaylist}
+				/>
+			)}
 			<Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
 				<ModalOverlay />
 				<ModalContent>
@@ -213,14 +225,27 @@ const PlaylistDetail = () => {
 									<Text color="#777777" marginBottom={8}>
 										by {playlist.owner.display_name}
 									</Text>
-									<Button
-										background="#EF266E"
-										_hover={{ background: '#EF266E' }}
-										_active={{ background: '#EF266E' }}
-										onClick={() => setModalOpen(true)}
-									>
-										Delete Playlist
-									</Button>
+									<Flex>
+										<Button
+											background="#1DB954"
+											rounded="full"
+											marginRight={4}
+											_hover={{ background: '#1CAF50' }}
+											_active={{ background: '#1CAF50' }}
+											onClick={() => setModalEdit(true)}
+										>
+											Edit Playlist
+										</Button>
+										<Button
+											background="#EF266E"
+											rounded="full"
+											_hover={{ background: '#EF266E' }}
+											_active={{ background: '#EF266E' }}
+											onClick={() => setModalOpen(true)}
+										>
+											Delete Playlist
+										</Button>
+									</Flex>
 								</Box>
 							</Flex>
 						</Box>

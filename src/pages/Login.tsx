@@ -44,15 +44,6 @@ function Login() {
 				>
 					Login with Spotify
 				</Button>
-				<Box
-					paddingY={10}
-					textAlign="center"
-					color="#777777"
-					position="absolute"
-					bottom={0}
-				>
-					Made with ❤️ by ardha
-				</Box>
 			</Flex>
 		</Box>
 	);

@@ -33,6 +33,7 @@ npm start
 - Delete playlist
 - Playlist detail
 - Remove track from playlist
+- Update playlist name and description
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
