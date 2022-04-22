@@ -3,7 +3,8 @@ const handleAuth = () => {
 	const redirectUri =
 		process.env.REACT_APP_BASE_URL || 'http://localhost:3000';
 
-	const scope = 'playlist-modify-private user-read-private';
+	const scope =
+		'playlist-modify-private playlist-modify-public user-read-private playlist-read-private';
 
 	let url = 'https://accounts.spotify.com/authorize';
 	url += '?response_type=token';

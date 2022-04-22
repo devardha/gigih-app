@@ -16,8 +16,8 @@ import PlaylistItem from '../components/PlaylistItem';
 
 const Playlist = () => {
 	const { results } = useSelector((state: SearchState) => state.search);
-	const { user, accessToken } = useSelector((state: UserState) => state.user);
-	const [playlist, setPlaylist] = useState([]);
+	const { accessToken } = useSelector((state: UserState) => state.user);
+	const [playlist, setPlaylist] = useState<any>([]);
 
 	const handleSearch = async () => {
 		if (accessToken && accessToken !== '') {
@@ -36,11 +36,14 @@ const Playlist = () => {
 		}
 	};
 
+	const removePlaylist = (id: string) => {
+		const filtered = playlist.filter((item) => item.id !== id);
+		setPlaylist(filtered);
+	};
+
 	useEffect(() => {
 		handleSearch();
 	}, []);
-
-	console.log(playlist);
 
 	return (
 		<>
@@ -74,7 +77,10 @@ const Playlist = () => {
 									key={`${item.id}${index}`}
 									width="100%"
 								>
-									<PlaylistItem data={item} />
+									<PlaylistItem
+										data={item}
+										removePlaylist={removePlaylist}
+									/>
 								</GridItem>
 							))}
 						</Grid>

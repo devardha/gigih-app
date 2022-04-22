@@ -7,7 +7,7 @@ import data from '../data/lottie/spotify-logo.json';
 
 const Sidebar = () => {
 	const location = useLocation();
-	console.log('');
+
 	return (
 		<Box
 			w="240px"

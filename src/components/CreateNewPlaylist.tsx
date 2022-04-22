@@ -55,22 +55,23 @@ const CreateNewPlaylist = ({ modalOpen, setModalOpen }: any) => {
 			.then((response) => response.json())
 			.then(() => {
 				setLoading(false);
+				setModalOpen(false);
 				toast({
 					title: 'Playlist created!',
-					description:
-						'Playlist has been created. Open Spotify to see the playlist.',
+					description: 'Playlist has been created',
 					status: 'success',
 					duration: 9000,
 					isClosable: true,
 				});
 			})
 			.catch((err) => {
-				console.log(err);
 				setLoading(false);
 			});
 	};
 
 	const createPlaylist = () => {
+		if (formData.description.length < 10) return;
+
 		setLoading(true);
 		const body = {
 			name: formData.name,
@@ -92,7 +93,6 @@ const CreateNewPlaylist = ({ modalOpen, setModalOpen }: any) => {
 				addSongToPlaylist(res.id);
 			})
 			.catch((err) => {
-				console.log(err);
 				setLoading(false);
 			});
 	};
@@ -129,6 +129,7 @@ const CreateNewPlaylist = ({ modalOpen, setModalOpen }: any) => {
 						placeholder="Description (min 10)"
 						minLength={10}
 						value={formData.description}
+						isInvalid={formData.description.length < 10}
 						onChange={(e) =>
 							setFormData({
 								...formData,
